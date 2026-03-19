@@ -3,8 +3,7 @@ class InflowCli < Formula
 
   desc "CLI tool for InFlow ESP32 hydration sensor devices over BLE"
   homepage "https://github.com/Intake-Health/inflow-cli"
-  url "https://github.com/Intake-Health/inflow-cli/releases/download/v0.1.0/inflow_cli-0.1.0.tar.gz",
-      using: :github_private_release
+  url "https://github.com/Intake-Health/homebrew-tap/releases/download/v0.1.0/inflow_cli-0.1.0.tar.gz"
   sha256 "4a230010e9b04cb949d24c3e0f282cb5303ad67989d7284d510ca54258192747"
   license "MIT"
 
