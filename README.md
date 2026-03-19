@@ -22,7 +22,7 @@ When you tag a new release on a formula's source repo, update the tap so `brew u
 ### 1. Tag and push the release
 
 ```bash
-cd ~/inflow-ops-app  # or whichever project
+cd ~/inflow-cli  # or whichever project
 git tag v0.2.0
 git push origin v0.2.0
 ```
@@ -30,13 +30,13 @@ git push origin v0.2.0
 ### 2. Create a GitHub release
 
 ```bash
-gh release create v0.2.0 --generate-notes --repo Intake-Health/inflow-ops-app
+gh release create v0.2.0 --generate-notes --repo Intake-Health/inflow-cli
 ```
 
 ### 3. Get the sha256 of the release tarball
 
 ```bash
-curl -sL https://github.com/Intake-Health/inflow-ops-app/archive/refs/tags/v0.2.0.tar.gz | shasum -a 256
+curl -sL https://github.com/Intake-Health/inflow-cli/archive/refs/tags/v0.2.0.tar.gz | shasum -a 256
 ```
 
 ### 4. Update the formula
