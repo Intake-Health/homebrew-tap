@@ -40,6 +40,11 @@ class InflowCli < Formula
     sha256 "16644a92fb9661de841ba6115e5354db06a1d193a5e239046e840013c7b3874d"
   end
 
+  resource "pyobjc-framework-Cocoa" do
+    url "https://files.pythonhosted.org/packages/22/fc/496c6ce1386f93d22d9a1ee1889215ed69989d976efa27e46b37b95a4f2d/pyobjc_framework_Cocoa-10.3.2-cp312-cp312-macosx_10_13_universal2.whl"
+    sha256 "c49e99fc4b9e613fb308651b99d52a8a9ae9916c8ef27aa2f5d585b6678a59bf"
+  end
+
   resource "pyobjc-framework-CoreBluetooth" do
     url "https://files.pythonhosted.org/packages/f7/b0/9006d9d6cc5780fc190629ff42d8825fe7737dbe2077fbaae38813f0242e/pyobjc_framework_CoreBluetooth-10.3.2-cp36-abi3-macosx_10_13_universal2.whl"
     sha256 "973b78f47c7e2209a475e60bcc7d1b4a87be6645d39b4e8290ee82640e1cc364"
@@ -83,6 +88,9 @@ class InflowCli < Formula
       Run `inflow --help` for full details.
 
       Note: InFlow devices only advertise BLE while on the charger.
+
+      OTA firmware updates require an additional dependency:
+        pip install pyobjc-framework-IOBluetooth
     EOS
   end
 
