@@ -8,11 +8,7 @@ class InflowCli < Formula
   license "MIT"
 
   depends_on "python@3.12"
-
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/source/s/setuptools/setuptools-75.8.2.tar.gz"
-    sha256 "4880473a969e5f23f2a2be3646b2dfd84af9028716d398e46192f84bc36900d2"
-  end
+  depends_on "python-setuptools"
 
   resource "bleak" do
     url "https://files.pythonhosted.org/packages/source/b/bleak/bleak-0.22.3.tar.gz"
