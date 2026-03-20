@@ -10,11 +10,6 @@ class InflowCli < Formula
   depends_on :macos
   depends_on "python@3.12"
 
-  resource "bleak" do
-    url "https://files.pythonhosted.org/packages/source/b/bleak/bleak-0.22.3.tar.gz"
-    sha256 "3149c3c19657e457727aa53d9d6aeb89658495822cd240afd8aeca4dd09c045c"
-  end
-
   resource "click" do
     url "https://files.pythonhosted.org/packages/source/c/click/click-8.1.8.tar.gz"
     sha256 "ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"
@@ -35,26 +30,6 @@ class InflowCli < Formula
     sha256 "786ff802f32e91311bff3889f6e9a86e81505fe99f2735bb6d60ae0c5004f199"
   end
 
-  resource "pyobjc-core" do
-    url "https://files.pythonhosted.org/packages/13/89/8808fe75efb03b29e082f9d12da31d55d5be3f55260c7b4e4cde7ebf81af/pyobjc_core-10.3.2-cp312-cp312-macosx_10_13_universal2.whl"
-    sha256 "16644a92fb9661de841ba6115e5354db06a1d193a5e239046e840013c7b3874d"
-  end
-
-  resource "pyobjc-framework-Cocoa" do
-    url "https://files.pythonhosted.org/packages/22/fc/496c6ce1386f93d22d9a1ee1889215ed69989d976efa27e46b37b95a4f2d/pyobjc_framework_Cocoa-10.3.2-cp312-cp312-macosx_10_13_universal2.whl"
-    sha256 "c49e99fc4b9e613fb308651b99d52a8a9ae9916c8ef27aa2f5d585b6678a59bf"
-  end
-
-  resource "pyobjc-framework-CoreBluetooth" do
-    url "https://files.pythonhosted.org/packages/f7/b0/9006d9d6cc5780fc190629ff42d8825fe7737dbe2077fbaae38813f0242e/pyobjc_framework_CoreBluetooth-10.3.2-cp36-abi3-macosx_10_13_universal2.whl"
-    sha256 "973b78f47c7e2209a475e60bcc7d1b4a87be6645d39b4e8290ee82640e1cc364"
-  end
-
-  resource "pyobjc-framework-libdispatch" do
-    url "https://files.pythonhosted.org/packages/e0/e9/8e364765ccb1f3c686d922e2512499f2b4e25bfbfa5d73e833478bff88b5/pyobjc_framework_libdispatch-10.3.2-cp312-cp312-macosx_10_13_universal2.whl"
-    sha256 "6bb528f34538f35e1b79d839dbfc398dd426990e190d9301fe2d811fddc3da62"
-  end
-
   resource "rich" do
     url "https://files.pythonhosted.org/packages/source/r/rich/rich-13.9.4.tar.gz"
     sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
@@ -71,7 +46,22 @@ class InflowCli < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python3.12")
+
+    # Install pyobjc packages from PyPI directly — pip will use pre-built
+    # wheels, avoiding the source build that fails without pkg_resources.
+    # These are required by bleak for macOS CoreBluetooth access.
+    venv.pip_install "pyobjc-core==10.3.2"
+    venv.pip_install "pyobjc-framework-Cocoa==10.3.2"
+    venv.pip_install "pyobjc-framework-CoreBluetooth==10.3.2"
+    venv.pip_install "pyobjc-framework-libdispatch==10.3.2"
+
+    # Install bleak from PyPI (its other deps are already satisfied above)
+    venv.pip_install "bleak==0.22.3"
+
+    # Install remaining pure-Python resources from formula
+    venv.pip_install resources
+    venv.pip_install_and_link buildpath
   end
 
   def caveats
