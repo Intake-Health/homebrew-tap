@@ -47,19 +47,20 @@ class InflowCli < Formula
 
   def install
     venv = virtualenv_create(libexec, "python3.12")
+    python = libexec/"bin/python"
 
-    # Install pyobjc packages from PyPI directly — pip will use pre-built
-    # wheels, avoiding the source build that fails without pkg_resources.
-    # These are required by bleak for macOS CoreBluetooth access.
-    venv.pip_install "pyobjc-core==10.3.2"
-    venv.pip_install "pyobjc-framework-Cocoa==10.3.2"
-    venv.pip_install "pyobjc-framework-CoreBluetooth==10.3.2"
-    venv.pip_install "pyobjc-framework-libdispatch==10.3.2"
+    # Homebrew's pip_install forces --no-binary=:all: which prevents wheels
+    # and forces source builds. pyobjc-core's source build requires
+    # pkg_resources at build time, which fails under pip's build isolation.
+    # Bypass Homebrew's helper and call pip via python -m pip to allow wheels.
+    system python, "-m", "pip", "install", "--no-deps",
+      "pyobjc-core==10.3.2",
+      "pyobjc-framework-Cocoa==10.3.2",
+      "pyobjc-framework-CoreBluetooth==10.3.2",
+      "pyobjc-framework-libdispatch==10.3.2",
+      "bleak==0.22.3"
 
-    # Install bleak from PyPI (its other deps are already satisfied above)
-    venv.pip_install "bleak==0.22.3"
-
-    # Install remaining pure-Python resources from formula
+    # Install remaining pure-Python resources (no C extensions, build fine)
     venv.pip_install resources
     venv.pip_install_and_link buildpath
   end
