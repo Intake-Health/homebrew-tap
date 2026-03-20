@@ -7,8 +7,8 @@ class InflowCli < Formula
   sha256 "90310030cbf92a8bda970341ee236a0b03e10503388d952d1daeb4b634210d9e"
   license "MIT"
 
+  depends_on :macos
   depends_on "python@3.12"
-  depends_on "python-setuptools"
 
   resource "bleak" do
     url "https://files.pythonhosted.org/packages/source/b/bleak/bleak-0.22.3.tar.gz"
@@ -36,18 +36,18 @@ class InflowCli < Formula
   end
 
   resource "pyobjc-core" do
-    url "https://files.pythonhosted.org/packages/source/p/pyobjc-core/pyobjc_core-10.3.2.tar.gz"
-    sha256 "dbf1475d864ce594288ce03e94e3a98dc7f0e4639971eb1e312bdf6661c21e0e"
+    url "https://files.pythonhosted.org/packages/13/89/8808fe75efb03b29e082f9d12da31d55d5be3f55260c7b4e4cde7ebf81af/pyobjc_core-10.3.2-cp312-cp312-macosx_10_13_universal2.whl"
+    sha256 "16644a92fb9661de841ba6115e5354db06a1d193a5e239046e840013c7b3874d"
   end
 
   resource "pyobjc-framework-CoreBluetooth" do
-    url "https://files.pythonhosted.org/packages/source/p/pyobjc-framework-corebluetooth/pyobjc_framework_corebluetooth-10.3.2.tar.gz"
-    sha256 "c0a077bc3a2466271efa382c1e024630bc43cc6f9ab8f3f97431ad08b1ad52bb"
+    url "https://files.pythonhosted.org/packages/f7/b0/9006d9d6cc5780fc190629ff42d8825fe7737dbe2077fbaae38813f0242e/pyobjc_framework_CoreBluetooth-10.3.2-cp36-abi3-macosx_10_13_universal2.whl"
+    sha256 "973b78f47c7e2209a475e60bcc7d1b4a87be6645d39b4e8290ee82640e1cc364"
   end
 
   resource "pyobjc-framework-libdispatch" do
-    url "https://files.pythonhosted.org/packages/source/p/pyobjc-framework-libdispatch/pyobjc_framework_libdispatch-10.3.2.tar.gz"
-    sha256 "e9f4311fbf8df602852557a98d2a64f37a9d363acf4d75634120251bbc7b7304"
+    url "https://files.pythonhosted.org/packages/e0/e9/8e364765ccb1f3c686d922e2512499f2b4e25bfbfa5d73e833478bff88b5/pyobjc_framework_libdispatch-10.3.2-cp312-cp312-macosx_10_13_universal2.whl"
+    sha256 "6bb528f34538f35e1b79d839dbfc398dd426990e190d9301fe2d811fddc3da62"
   end
 
   resource "rich" do
